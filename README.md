@@ -1,2 +1,2 @@
 # Robotics Team 6322-WiredCats
-Code for 2018 RelicRecovery game 
+Code for the First Tech Challenge 2018 RelicRecovery game 
