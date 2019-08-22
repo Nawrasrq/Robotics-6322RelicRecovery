@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import android.graphics.Color;
-
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -14,7 +13,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
-
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -28,7 +26,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 /**
- * Created by P00110437 on 3/12/2018.
+ * Created by Juan Valasquez on 3/12/2018.
+ * Cleaned up spacing by Nawras Rawas Qalaji
  */
 
 public abstract class WiredcatsLinearOpMode extends LinearOpMode {
@@ -94,16 +93,13 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
     public BNO055IMU Imu;
     public Orientation lastAngles = new Orientation();
 
-
     //Vuforia
     public static final String TAG = "Vuforia VuMark Sample";
     public OpenGLMatrix lastLocation = null;
     public VuforiaLocalizer Vuforia;
-
     public VuforiaTrackables relicTrackables = this.Vuforia.loadTrackablesFromAsset("RelicVuMark");
 
     //Controller 1 Inputs
-
     //Analog Sticks
     public float lefty = gamepad1.left_stick_y;
     public float leftx = gamepad1.left_stick_x;
@@ -155,35 +151,21 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
 
 
     //Values
-
     public double ClampInit = 0.0;
-
     public double BlockerInit = 1.0;
-
     public double DumpInit = 0.0;
-
     public double DumpFinal = 1.0;
-
     public double AlignLeftInit = 0.0;
-
     public double AlignLeftFinal = 1.0;
-
     public double AlignRightInit = 1.0;
-
     public double JewelDeployInit = 0.0;
-
     public double JewelHitInit = 0.5;
-
     public double JewelHitRight = 0.25;
-
     public double JewelHitLeft = 0.75;
-
     public double JewelHitMoveClose = 0.53;
-
     public double detectedGlyph = 1.5;
-
     public double noGlyph = 0;
-
+    
     public int newfrontLeftTarget;
     public int newfrontRightTarget;
     public int newbackLeftTarget;
@@ -210,7 +192,6 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
     public String VisionTele;
 
     public int picto = 0;
-
     public double globalAngle = .30;
 
     public double P, I, D = 1;
@@ -219,8 +200,7 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
     static final double     COUNTS_PER_MOTOR_REV    = 134.4 ;
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;
-    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-            (WHEEL_DIAMETER_INCHES * Math.PI);
+    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
 
     public void inititalize(){
 
@@ -256,7 +236,6 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
         Lift = hardwareMap.dcMotor.get("lift");
 
         Lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
         Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //Relic Initialization
@@ -312,7 +291,6 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
 
         //Touch Sensor Initialization
         TouchLift = hardwareMap.get(DigitalChannel.class, "Tl");
-
         TouchLift.setMode(DigitalChannel.Mode.INPUT);
 
         //Imu Initialization
@@ -324,18 +302,13 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
         parameters.loggingEnabled      = false;
 
         Imu = hardwareMap.get(BNO055IMU.class, "imu");
-
         Imu.initialize(parameters);
 
         //Vuforia Initialization
-
-
-
-
+        
         sleep(1000);
         telemetry.addData("Initialization ", "complete");
         telemetry.update();
-
     }
 
     public void outtakeByTime(double power, int time) throws InterruptedException{
@@ -346,7 +319,6 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
         IntakeLeft.setPower(0.0);
         IntakeRight.setPower(0.0);
         idle();
-
     }
 
     public void intakeByTime(double power, int time) throws InterruptedException{
@@ -357,7 +329,6 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
         IntakeLeft.setPower(0.0);
         IntakeRight.setPower(0.0);
         idle();
-
     }
 
     public void intakeByPower(double power) throws InterruptedException{
@@ -365,7 +336,6 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
         IntakeLeft.setPower(power);
         IntakeRight.setPower(power);
         idle();
-
     }
 
     public void outtakeByPower(double power) throws InterruptedException{
@@ -373,7 +343,6 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
         IntakeLeft.setPower(power);
         IntakeRight.setPower(power);
         idle();
-
     }
 
     public void stopIntake()throws InterruptedException{
@@ -381,13 +350,10 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
         IntakeLeft.setPower(0.0);
         IntakeRight.setPower(0.0);
         idle();
-
     }
 
     public void jewelDetect(String color) throws InterruptedException{
-
         if(color == "Blue"){
-
             if (ColorJewel.red() > ColorJewel.blue()){
 
                 JewelHit.setPosition(JewelHitLeft);
@@ -396,7 +362,6 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
                 JewelHit.setPosition(JewelHitInit);
                 sleep(400);
                 idle();
-
             }
             else if(ColorJewel.red() < ColorJewel.blue()){
 
@@ -406,14 +371,12 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
                 JewelHit.setPosition(JewelHitInit);
                 sleep(400);
                 idle();
-
             }
             else if(ColorJewel.red() == 0 && ColorJewel.blue() == 0){
 
                 JewelHit.setPosition(JewelHitMoveClose);
                 sleep(50);
                 idle();
-
                 if (ColorJewel.red() > ColorJewel.blue()){
 
                     JewelHit.setPosition(JewelHitLeft);
@@ -422,7 +385,6 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
                     JewelHit.setPosition(JewelHitInit);
                     sleep(400);
                     idle();
-
                 }
                 else if(ColorJewel.red() < ColorJewel.blue()){
 
@@ -432,19 +394,15 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
                     JewelHit.setPosition(JewelHitInit);
                     sleep(400);
                     idle();
-
                 }
                 JewelDeploy.setPosition(JewelDeployInit);
                 JewelHit.setPosition(JewelHitInit);
                 sleep(400);
-
             }
             idle();
-
         }
 
         else if(color == "Red"){
-
             if (ColorJewel.red() < ColorJewel.blue()){
 
                 JewelHit.setPosition(JewelHitLeft);
@@ -453,7 +411,6 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
                 JewelHit.setPosition(JewelHitInit);
                 sleep(400);
                 idle();
-
             }
             else if(ColorJewel.red() > ColorJewel.blue()){
 
@@ -463,14 +420,12 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
                 JewelHit.setPosition(JewelHitInit);
                 sleep(400);
                 idle();
-
             }
             else if(ColorJewel.red() == 0 && ColorJewel.blue() == 0){
 
                 JewelHit.setPosition(JewelHitMoveClose);
                 sleep(50);
                 idle();
-
                 if (ColorJewel.red() < ColorJewel.blue()){
 
                     JewelHit.setPosition(JewelHitLeft);
@@ -479,7 +434,6 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
                     JewelHit.setPosition(JewelHitInit);
                     sleep(400);
                     idle();
-
                 }
                 else if(ColorJewel.red() > ColorJewel.blue()){
 
@@ -489,105 +443,81 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
                     JewelHit.setPosition(JewelHitInit);
                     sleep(400);
                     idle();
-
                 }
                 JewelDeploy.setPosition(JewelDeployInit);
                 JewelHit.setPosition(JewelHitInit);
                 sleep(400);
-
             }
             idle();
-
         }
-
     }
 
     public void driveToLeftWall(double power, double timeout) throws InterruptedException{
-
         Runtime.reset();
-
+        
         while(opModeIsActive() && Runtime.milliseconds() < timeout && DistanceLeft.getDistance(DistanceUnit.CM) > 2){
 
             LRByGyro(power, timeout);
-
         }
 
         stopDrive();
-
         idle();
-
     }
 
     public void driveToRghtWall(double power, double timeout) throws InterruptedException{
-
+        
         Runtime.reset();
-
         while(opModeIsActive() && Runtime.milliseconds() < timeout && DistanceRight.getDistance(DistanceUnit.CM) > 2){
 
             LRByGyro(-power, timeout);
-
         }
 
         stopDrive();
-
         idle();
-
     }
 
     public void intakeUntilOneGlyph(double approachSpeed, double timeout) throws InterruptedException{
 
         Runtime.reset();
-
         Runtime.startTime();
-
         while(opModeIsActive() && Runtime.milliseconds() < timeout && DistanceFront.getDistance(DistanceUnit.CM) < detectedGlyph){
 
             intakeByPower(1.0);
             FBByGyro(approachSpeed, timeout);
-
         }
 
         stopIntake();
         stopDrive();
         idle();
-
     }
 
     public void intakeUntilTwoGlyphs(double approachSpeed, double timeout) throws InterruptedException{
 
         Runtime.reset();
-
         Runtime.startTime();
-
         while(opModeIsActive() && Runtime.milliseconds() < timeout && DistanceFront.getDistance(DistanceUnit.CM) < detectedGlyph || DistanceBack.getDistance(DistanceUnit.CM) < detectedGlyph){
 
             intakeByPower(1.0);
             FBByGyro(approachSpeed, timeout);
-
         }
 
         stopIntake();
         stopDrive();
         idle();
-
     }
 
-    private void resetAngle()
-    {
+    private void resetAngle(){
         lastAngles = Imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-
         globalAngle = 0;
     }
 
-    private double getAngle()
-    {
+    private double getAngle(){
         // We experimentally determined the Z axis is the axis we want to use for heading angle.
         // We have to process the angle because the imu works in euler angles so the Z axis is
         // returned as 0 to +180 or 0 to -180 rolling back to -179 or +179 when rotation passes
         // 180 degrees. We detect this transition and track the total cumulative angle of rotation.
 
         Orientation angles = Imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-
         double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
 
         if (deltaAngle < -180)
@@ -596,19 +526,15 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
             deltaAngle -= 360;
 
         globalAngle += deltaAngle;
-
         lastAngles = angles;
-
         return globalAngle;
     }
 
-    public double checkDirection()
-    {
+    public double checkDirection(){
         // The gain value determines how sensitive the correction is to direction changes.
         // You will have to experiment with your robot to get small smooth direction changes
         // to stay on a straight line.
         double correction, angle, gain = .10;
-
         angle = getAngle();
 
         if (angle == 0)
@@ -617,27 +543,23 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
             correction = -angle;        // reverse sign of angle for correction.
 
         correction = correction * gain;
-
         return correction;
     }
-
+    
     public void rotate(int degrees) {
         double  leftPower, rightPower;
 
         if(opModeIsActive()) {
-
+            
             getPID(degrees, getAngle());
-
             if (degrees < 0) {
 
                 leftPower = -rcw;
                 rightPower = rcw;
-
             } else if (degrees > 0) {
 
                 leftPower = rcw;
                 rightPower = -rcw;
-
             } else return;
 
             // set power to rotate.
@@ -645,25 +567,20 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
             FrontRight.setPower(rightPower);
             BackLeft.setPower(leftPower);
             BackRight.setPower(rightPower);
-
+            
             // rotate until turn is completed.
             if (degrees < 0) {
                 // On right turn we have to get off zero first.
                 while (opModeIsActive() && getAngle() == 0) {
-
-
-
+                
                 }
 
                 while (opModeIsActive() && getAngle() > degrees) {
 
-
-
                 }
-            } else    // left turn.
+            }
+            else    // left turn.
                 while (opModeIsActive() && getAngle() < degrees) {
-
-
 
                 }
 
@@ -678,7 +595,6 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
 
             // reset angle tracking on new heading.
             resetAngle();
-
         }
     }
 
@@ -733,15 +649,12 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
             BackLeft.setPower(0);
             BackRight.setPower(0);
 
-
             // Turn off RUN_TO_POSITION
             FrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             FrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             BackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             BackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
         }
-
     }
     public void Backwards(double distance, double timeout){
 
@@ -802,7 +715,6 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
             BackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         }
-
     }
 
     public void Left(double distance, double timeout){
@@ -839,7 +751,6 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
             while (opModeIsActive() &&
                     (Runtime.seconds() < timeout) &&
                     (FrontLeft.isBusy() && FrontRight.isBusy() && BackLeft.isBusy() && BackRight.isBusy())) {
-
                 // Display it for the driver.
             }
 
@@ -849,20 +760,15 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
             BackLeft.setPower(0);
             BackRight.setPower(0);
 
-
             // Turn off RUN_TO_POSITION
             FrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             FrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             BackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             BackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
         }
-
     }
 
     public void Right(double distance, double timeout){
-
-
 
         if(opModeIsActive()){
 
@@ -901,25 +807,20 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
             BackLeft.setPower(0);
             BackRight.setPower(0);
 
-
             // Turn off RUN_TO_POSITION
             FrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             FrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             BackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             BackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
         }
-
     }
 
     public void FBByGyro(double power, double time) throws InterruptedException{
 
         Runtime.reset();
-
+        
         double correction;
-
         correction = checkDirection();
-
         while(opModeIsActive() && time < Runtime.milliseconds()){
 
             FrontLeft.setPower(power + correction);
@@ -928,19 +829,16 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
             BackRight.setPower(power - correction);
 
             idle();
-
         }
 
         stopDrive();
-
     }
 
     public void LRByGyro(double power, double time) throws InterruptedException{
 
         Runtime.reset();
-
+        
         double correction;
-
         correction = checkDirection();
 
         while(opModeIsActive() && time < Runtime.milliseconds()){
@@ -951,29 +849,25 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
             BackRight.setPower(-power - correction);
 
             idle();
-
         }
 
         stopDrive();
-
     }
 
     public void getPID(double sensorValue, double desiredValue){
 
         resetAngle();
-
+        
         error = (desiredValue - sensorValue);
         this.integral += (error * 0.2);
         derivative = (error - this.previous_error) / 0.2;
         this.rcw = P * error + I * this.integral + D * derivative;
-
     }
 
     public void liftByPower(double power){
-
+        
         Lift.setPower(power);
         idle();
-
     }
 
     public void stopDrive(){
@@ -982,7 +876,6 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
         FrontRight.setPower(0);
         BackLeft.setPower(0);
         BackRight.setPower(0);
-
     }
 
     public void resetDrive() {
@@ -1015,14 +908,12 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
 
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
 
-
         if (vuMark == RelicRecoveryVuMark.CENTER){
-
+            
             Vision = 1;
             VisionTele = "Center";
             sleep(50);
             idle();
-
         }
         else if (vuMark == RelicRecoveryVuMark.LEFT){
 
@@ -1030,7 +921,6 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
             VisionTele = "Left";
             sleep(50);
             idle();
-
         }
         else if (vuMark == RelicRecoveryVuMark.RIGHT){
 
@@ -1038,17 +928,15 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
             VisionTele = "Right";
             sleep(50);
             idle();
-
         }
         sleep(50);
 
         Vision = picto;
-
         return Vision;
-
     }
+    
     public void telemetry() throws InterruptedException{
-
+        
         while(opModeIsActive()){
 
             telemetry.addData("Angle: ", getAngle());
@@ -1069,10 +957,7 @@ public abstract class WiredcatsLinearOpMode extends LinearOpMode {
             telemetry.addData("Right Ultra: ", UltraRight.getDistance(DistanceUnit.CM));
             telemetry.addData("Left Ultra: ", UltraLeft.getDistance(DistanceUnit.CM));
             telemetry.update();
-
         }
         idle();
-
     }
-
 }
