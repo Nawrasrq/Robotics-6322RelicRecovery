@@ -1,23 +1,19 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-
 /**
- * Created by P00110437 on 3/12/2018.
+ * Created by Juan valasquez on 3/12/2018.
  */
-
 
 @Autonomous
 public class Blue extends WiredcatsLinearOpMode {
 
     public void runOpMode() throws InterruptedException{
-
         inititalize();
 
         while(!(isStarted()  || isStopRequested())) {
 
             idle();
-
         }
 
         waitForStart();
@@ -76,35 +72,22 @@ public class Blue extends WiredcatsLinearOpMode {
            Dump.setPosition(DumpInit);
            resetDrive();
            sleep(50);
-
-
-
         }
 
         //Left
         else if(picto == 2){
-
-
 
         }
 
         //Right
         else if(picto == 3){
 
-
-
         }
         //If nothing is detected, run left column
         else{
 
-
-
         }
-
+        
         idle();
-
     }
-
-
-
 }
