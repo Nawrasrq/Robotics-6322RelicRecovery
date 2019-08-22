@@ -83,6 +83,7 @@ public class Blue extends WiredcatsLinearOpMode {
         else if(picto == 3){
 
         }
+        
         //If nothing is detected, run left column
         else{
 
